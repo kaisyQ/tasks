@@ -7,7 +7,7 @@ export default styled.textarea`
     
     padding: 1rem 2rem;
     
-    border: 2px solid #29db4f;
+    border: 2px solid #e50909;
     
     font: inherit;
 `;

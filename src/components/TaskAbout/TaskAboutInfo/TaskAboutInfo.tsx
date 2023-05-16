@@ -73,7 +73,7 @@ const TaskAboutInfo = ({ editMode, task } : ITaskAboutInfoProps) => {
                 {
                     !editMode ? 
                         <InfoBlock>{ task?.title }</InfoBlock> :
-                    <Input value={creatingTitle} onChange={onTitleChange}/>     
+                    <Input placeholder="Enter title" value={creatingTitle} onChange={onTitleChange}/>     
                 }
             </TaskAboutBlock>
             
@@ -133,13 +133,13 @@ const TaskAboutInfo = ({ editMode, task } : ITaskAboutInfoProps) => {
                         task && task.description ? 
                             <InfoBlock>{ task.description }</InfoBlock> : 
                             <InfoBlock hint={true}>this taks dont have a description!</InfoBlock>
-                        : <Textarea value={creatingDescription} onChange={onDescriptionChange}/>
+                        : <Textarea placeholder="Enter description" value={creatingDescription} onChange={onDescriptionChange}/>
                 }
             </TaskAboutBlock>
             {
                 editMode ? <TaskAboutBlock>
                     <NavLink to={'/'}>
-                        <Button onClick={onSaveBtnClick}>Сохранить</Button>
+                        <Button color="#1a50d9" onClick={onSaveBtnClick}>Сохранить</Button>
                     </NavLink>
                 </TaskAboutBlock> : null
             }

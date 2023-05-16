@@ -25,5 +25,5 @@ export const getDateString = (date: Date) : string => {
     return `
         ${day < 10 ? `0${day}`: day} ${month+1 < 10 ? `0${month+1}`: month+1} ${year}; 
         ${hours < 10 ? `0${hours}`: hours}:${minutes < 10 ? `0${minutes}`: minutes}
-    `
+    `;
 }

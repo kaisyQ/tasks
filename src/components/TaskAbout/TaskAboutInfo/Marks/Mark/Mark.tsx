@@ -25,7 +25,7 @@ const Mark = ({ title, actionCreator, value } : IMark) => {
     return (
         <>
             <MarkContainer>
-                <MarkButton isBlack={value} onClick={onMarkClick}>{ title }</MarkButton>
+                <MarkButton isColored={value} onClick={onMarkClick}>{ title }</MarkButton>
             </MarkContainer>
         </>
     );

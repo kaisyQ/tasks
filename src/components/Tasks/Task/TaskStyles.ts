@@ -8,7 +8,7 @@ export const TaskContainer = styled.div`
 
     display: flex;
     flex-direction: column;
-    row-gap: 2rem;
+    row-gap: 3rem;
 
     cursor: pointer;
 

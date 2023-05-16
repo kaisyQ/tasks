@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface IMarkButtonProps {
-    isBlack: boolean
+    isColored: boolean
 }
 
 export const MarkContainer = styled.div`
@@ -13,6 +13,6 @@ export const MarkButton = styled.button<IMarkButtonProps>`
     text-align: left;
     cursor: pointer;
 
-    background-color: ${props => props.isBlack ? '#000' : '#fff'};
-    color: ${props => props.isBlack ? '#fff' : '#000'};
+    background-color: ${props => props.isColored ? ' #e50909' : '#fff'};
+    color: ${props => props.isColored ? '#fff' : '#000'};
 `;

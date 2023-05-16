@@ -11,16 +11,18 @@ interface IPriorityBtnProps {
 
 export const PriorityItemContainer = styled.li<IPriorityItemProps>`
     display: ${props => props.show ? 'block' : 'none'};
+    
 `;
 
 export const PriorityItemBlock = styled.button<IPriorityBtnProps>`
-    padding: 1rem;
+    padding: 1.2rem;
     cursor: pointer;
     width: 100%;
     text-align: left;
 
-    background-color: #000;
+    background-color: brown;
     color: #fff;
+
 
     position: relative;
     ::after {
@@ -36,6 +38,6 @@ export const PriorityItemBlock = styled.button<IPriorityBtnProps>`
         border-left: 1px solid #fff;
         border-bottom: 1px solid #fff;
 
-        transform: ${props => props.show ? 'rotate(135deg)' : 'rotate(-45deg)' } translate(50%, -50%);
+        transform: ${props => props.show ? 'rotate(135deg) translate(50%, 50%)' : 'rotate(-45deg) translate(50%, -50%)' };
     }
 `;

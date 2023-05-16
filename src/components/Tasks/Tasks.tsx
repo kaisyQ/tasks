@@ -50,7 +50,7 @@ const Tasks = () => {
         <>
             <TasksContainer>
                 <NavLink to={'/task'}>
-                    <Button background="#1a50d9">Добавить задачу</Button>
+                    <Button color="#1a50d9">Добавить задачу</Button>
                 </NavLink>
                 {
                     tasks.length === 0 ? 

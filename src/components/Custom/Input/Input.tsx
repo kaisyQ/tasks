@@ -5,7 +5,8 @@ export default styled.input`
     
     padding: 1.5rem 2rem;
     
-    border: 2px solid #29db4f;
+    border: 2px solid #e50909;
     
     font: inherit;
+
 `;
