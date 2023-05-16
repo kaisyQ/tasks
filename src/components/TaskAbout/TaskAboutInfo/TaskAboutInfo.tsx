@@ -10,10 +10,13 @@ import { TaskAboutBlock, InfoBlock } from "./TaskAboutInfoStyles";
 import { NavLink } from "react-router-dom";
 
 import { 
-    ITask, 
     createTask, setNewTaskDescription, 
     setNewTaskDesign, setNewTaskDevelopment, setNewTaskResearch, updateTask 
 } from "../../../store/taskSlice/taskSlice";
+
+import { ITask } from "../../../types/types";
+
+import { getDateString } from "../../../helpers/date";
 
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 
@@ -29,7 +32,7 @@ import {
 
 
 import Marks from "./Marks/Marks";
-import PrioritySelect from "./Prioriry/PrioritySelect";
+import PrioritySelect from "./Priority/PrioritySelect";
 
 interface ITaskAboutInfoProps {
     task: ITask | null,
@@ -76,9 +79,9 @@ const TaskAboutInfo = ({ editMode, task } : ITaskAboutInfoProps) => {
             
             <TaskAboutBlock>
             {
-                !editMode ? <>
+                !editMode && task? <>
                     <Title>Дата создания</Title>
-                    <InfoBlock>{ task?.date.toString() }</InfoBlock>
+                    <InfoBlock>{ getDateString(task.date) }</InfoBlock>
                 </> : null
             }
             </TaskAboutBlock>
@@ -86,7 +89,8 @@ const TaskAboutInfo = ({ editMode, task } : ITaskAboutInfoProps) => {
             <TaskAboutBlock>
                 <Title>Приоритет</Title>
                 {
-                    !editMode ?  <InfoBlock>{ task?.priority }</InfoBlock> : <PrioritySelect items={['LOW','NORMAL','HIGH']}/>
+                    !editMode && task ?  
+                        <InfoBlock>{ task.priority }</InfoBlock> : <PrioritySelect items={['LOW','NORMAL','HIGH']}/>
                 }
             </TaskAboutBlock> 
             
@@ -96,6 +100,7 @@ const TaskAboutInfo = ({ editMode, task } : ITaskAboutInfoProps) => {
                     task && !editMode ? <>
                         <InfoBlock>
                         {
+                            !task.research && !task.design && !task.description ? 'no marks' : 
                             (task.research?'research ':'')+(task.design?'design ':' ')+(task.development?'dev':'')
                         }
                         </InfoBlock> 

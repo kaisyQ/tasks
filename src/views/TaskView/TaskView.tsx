@@ -20,18 +20,17 @@ const TaskView = () => {
     
     const { id } = useParams();
 
-    const [ editMode, setEditMode ] = React.useState(false);
+    const [ editMode, setEditMode ] = React.useState(true);
 
     React.useEffect(() => {
         
         if (!id) {
-            setEditMode(true);
             dispatch(setCurrentTaskId(null));
             return;
         }
 
         dispatch(setCurrentTaskId(parseInt(id)));
-
+        setEditMode(false);
 
     }, [id, setEditMode])
 

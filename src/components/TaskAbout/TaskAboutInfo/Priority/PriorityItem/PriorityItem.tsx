@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../../../../hooks/hooks";
 
 import { PriorityItemContainer, PriorityItemBlock } from "./PriorityItemStyles";
 
-import { Priority } from "../../../../../store/taskSlice/taskSlice";
+import { Priority } from "../../../../../types/types";
 
 import { setNewTaskPriority } from "../../../../../store/taskSlice/taskSlice";
 import { selectCreatingPriority } from "../../../../../store/taskSlice/selectors";
@@ -19,7 +19,7 @@ const PriorityItem = ({ value, showAll, setShowAll } : IPriorityItemProps) => {
     
     const dispatch = useAppDispatch();
 
-    const creatingPriority = useAppSelector(state => selectCreatingPriority(state))
+    const creatingPriority = useAppSelector(state => selectCreatingPriority(state));
     
     const onItemClick = (ev : React.MouseEvent<HTMLButtonElement>) => {
         dispatch(setNewTaskPriority(value));

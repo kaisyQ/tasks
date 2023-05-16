@@ -32,6 +32,8 @@ export const selectCreatingDev = (state: RootState) => state.tasks.creatingDevel
 
 export const selectCreatingDescription = (state: RootState) => state.tasks.creatingDescription;
 
+export const selectItemsMultiplier = (state: RootState) => state.tasks.itemsMultiplier;
+
 export const selectTaskById = createSelector([selectTasks, selectCurrentTaskId], (tasks, taskId) => {
     
     if(!taskId) return null;
@@ -41,7 +43,7 @@ export const selectTaskById = createSelector([selectTasks, selectCurrentTaskId],
     if(!task) return null;
 
     return task;
-});
+})
 
 export const selectSortedTasks =  createSelector([selectTasks, selectSortByNew], (tasks, sortByNew) => {
     if (!sortByNew) {
@@ -51,7 +53,7 @@ export const selectSortedTasks =  createSelector([selectTasks, selectSortByNew],
     return [...tasks].sort((firstTask, secondTask) => {
         return secondTask.date.getTime() - firstTask.date.getTime();
     })
-});
+})
  
 export const selectFilteredByPriorityTasks = createSelector(
     [selectSortedTasks, selectLowPriority, selectNormalPriority, selectHighPriority], 
@@ -61,15 +63,20 @@ export const selectFilteredByPriorityTasks = createSelector(
             task.priority === 'HIGH' && highPriority
         )
     }
-);
+)
 
 export const selectWithMarks = createSelector(
     [selectFilteredByPriorityTasks, selectResearch, selectDesign, selectDevelopment], 
     
+
     (tasks, research, design, dev) => {
 
-        if (!research && !design && !dev) return [...tasks];
+        if (!research && !design && !dev) return tasks.filter(task => !task.research && !task.design && !task.development);
 
-        return tasks.filter(task => task.research && research || task.design && design || task.development && dev);
+        return tasks.filter(task => (task.research && research) || (task.design &&  design) || (task.development && dev));
     }
-);
+)
+
+export const selectFilteredTasks = createSelector([selectWithMarks, selectItemsMultiplier], (tasks, multiplier) => {
+    return tasks.slice(0, 4*multiplier);
+})

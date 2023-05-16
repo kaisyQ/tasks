@@ -7,8 +7,6 @@ import { AppContainer } from "./AppStyles";
 import MainView from "./views/MainView/MainView";
 import TaskView from "./views/TaskView/TaskView";
 
-import styled from "styled-components";
-
 const App = () => {
     
     return (

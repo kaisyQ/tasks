@@ -4,7 +4,7 @@ import { PrioritySelectContainer } from "./PriorityStyles";
 
 import PriorityItem from "./PriorityItem/PriorityItem";
 
-import { Priority } from "../../../../store/taskSlice/taskSlice";
+import { Priority } from "../../../../types/types";
 
 interface IPriorityProps {
     items: Priority[]

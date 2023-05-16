@@ -4,28 +4,30 @@ import { TaskContainer, Subtitle } from "./TaskStyles";
 
 import Title from "../../Custom/Title/Title";
 
-import { ITask } from "../../../store/taskSlice/taskSlice";
 import { NavLink } from "react-router-dom";
 
+import { ITask } from "../../../types/types";
 
-const Task = (props : ITask) => {
+import { getDateString } from "../../../helpers/date";
+
+interface ITaskProps {
+    task: ITask
+}
+
+
+const Task = ({ task } : ITaskProps) => {
     return (
         <>
             <TaskContainer>
-                <NavLink to={`/task/${props.id}`}>
-                    <Title>{ props.title }</Title>
-                    <Subtitle>Создано : <span>{ props.date.toString() }</span></Subtitle>
-                    <Subtitle>Приоритет : <span>{ props.priority }</span></Subtitle>
+                <NavLink to={`/task/${task.id}`}>
+                    <Title>{ task.title }</Title>
+                    <Subtitle>Создано : <span>{ getDateString(task.date) }</span></Subtitle>
+                    <Subtitle>Приоритет : <span>{ task.priority }</span></Subtitle>
                     <Subtitle>
-                        Отметки:
+                        Отметки: 
                         {
-                            props.design ? <span>design</span> : null
-                        }
-                        {
-                            props.development ? <span>development</span> : null
-                        } 
-                        {
-                            props.research ? <span>research</span> : null
+                            !task.research && !task.design && !task.description ? 'no marks' : 
+                            (task.research?' research ':'')+(task.design?'design ':' ')+(task.development?'dev':'')
                         }
                     </Subtitle>
                 </NavLink>

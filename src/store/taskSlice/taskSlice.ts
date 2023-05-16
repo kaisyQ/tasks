@@ -1,29 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import type { Priority } from '../../types/types';
+import  { PRIORITY_LOW, PRIORITY_HIGH, PRIORITY_NORMAL } from '../../types/types';
 
-export type Priority = 'LOW' | 'NORMAL' | 'HIGH'
-
-export interface ITask {
-    id: number,
-    
-    title: string,
-    
-    priority: Priority,
-    
-    date: Date,
-
-    research: boolean,
-    design: boolean,
-    development: boolean
-    
-    description: string
-}
+import { ITask } from '../../types/types';
 
 
 interface ITasksState {
     tasks: ITask[],
 
     sortByNew: boolean,
+
+    itemsMultiplier: number,
 
     currentTaskId: number | null,
 
@@ -60,7 +48,7 @@ const initialState: ITasksState= {
             id: 2,
             title: 'sec task',
             priority: 'HIGH',
-            date: new Date(),
+            date: new Date('2017-01-26'),
             research: true,
             design: false,
             development: true,
@@ -85,9 +73,70 @@ const initialState: ITasksState= {
             design: false,
             development: true,
             description: 'null'
-        }
+        },
+        {
+            id: 5,
+            title: '4 task',
+            priority: 'HIGH',
+            date: new Date(),
+            research: true,
+            design: false,
+            development: true,
+            description: 'null'
+        },
+        {
+            id: 6,
+            title: '4 task',
+            priority: 'HIGH',
+            date: new Date(),
+            research: true,
+            design: false,
+            development: true,
+            description: 'null'
+        },
+        {
+            id: 7,
+            title: '4 task',
+            priority: 'HIGH',
+            date: new Date(),
+            research: true,
+            design: false,
+            development: true,
+            description: 'null'
+        },
+        {
+            id: 8,
+            title: '4 task',
+            priority: 'HIGH',
+            date: new Date(),
+            research: true,
+            design: false,
+            development: true,
+            description: 'null'
+        },
+        {
+            id: 9,
+            title: '4 task',
+            priority: 'HIGH',
+            date: new Date(),
+            research: true,
+            design: false,
+            development: true,
+            description: 'null'
+        },
+        {
+            id: 10,
+            title: '4 task',
+            priority: 'HIGH',
+            date: new Date(),
+            research: true,
+            design: false,
+            development: true,
+            description: 'null'
+        },
     ],
 
+    itemsMultiplier: 0,
     currentTaskId: null,
     
     sortByNew: true,
@@ -115,29 +164,25 @@ const taskSlice = createSlice({
         createTask: (state) => {
             if (!state.creatingTitle || !state.creatingPriority || !state.creatingDescription) return;
             
-            if (state.creatingResearch || state.creatingDesign || state.creatingDevelopment) {
+            state.tasks.push({
+                id: state.tasks.length,
+                title: state.creatingTitle,
+                priority: state.creatingPriority,
+                date: new Date(),
+                research: state.creatingResearch,
+                design: state.creatingDesign,
+                development: state.creatingDevelopment,
+                description: state.creatingDescription
+                
+            });
 
-                state.tasks.push({
-                    id: state.tasks.length,
-                    title: state.creatingTitle,
-                    priority: state.creatingPriority,
-                    date: new Date(),
-                    research: state.creatingResearch,
-                    design: state.creatingDesign,
-                    development: state.creatingDevelopment,
-                    description: state.creatingDescription
-                    
-                });
-
-                state.creatingTitle = '';
-                state.creatingPriority = 'LOW';
-                state.creatingResearch = false;
-                state.creatingDesign = false;
-                state.creatingDevelopment = false;
-                state.creatingDescription = '';
-            }
+            state.creatingTitle = '';
+            state.creatingPriority = PRIORITY_LOW;
+            state.creatingResearch = false;
+            state.creatingDesign = false;
+            state.creatingDevelopment = false;
+            state.creatingDescription = '';
         },
-
         updateTask: (state, action: PayloadAction<number>) => {
             state.tasks = state.tasks.map((task) => {
                 if (task.id !== action.payload) {
@@ -156,7 +201,7 @@ const taskSlice = createSlice({
             })
             
             state.creatingTitle = '';
-            state.creatingPriority = 'LOW';
+            state.creatingPriority = PRIORITY_LOW;
             state.creatingResearch = false;
             state.creatingDesign = false;
             state.creatingDevelopment = false;
@@ -167,62 +212,48 @@ const taskSlice = createSlice({
         deleteTask: (state, action: PayloadAction<number>) => {
             state.tasks = state.tasks.filter(task => task.id !== action.payload);
         },
-
+        increaseItemsMutiplier: (state) => {
+            state.itemsMultiplier++;
+        },
         setResearch: (state, action: PayloadAction<boolean>) => {
             state.research = action.payload;
         },
-
         setDesign: (state, action: PayloadAction<boolean>) => {
             state.design = action.payload;
         },
-
         setDevelopment: (state, action: PayloadAction<boolean>) => {
             state.development = action.payload;
         },
-        
         setSortBy: (state, action: PayloadAction<boolean>) => {
             state.sortByNew = action.payload;
         },
-
         setLowPriority: (state, action: PayloadAction<boolean>) => {
             state.lowPriority = action.payload;
         },
-
-        
         setNormalPriority: (state, action: PayloadAction<boolean>) => {
             state.normalPriority = action.payload;
         },
-        
         setHighPriority: (state, action: PayloadAction<boolean>) => {
             state.highPriority = action.payload;
         },
-
         setNewTaskTitle: (state, action: PayloadAction<string>) => {
             state.creatingTitle = action.payload;
         },
-
         setNewTaskPriority: (state, action: PayloadAction<Priority>) => {
             state.creatingPriority = action.payload;
         },
-
-
         setNewTaskResearch: (state, action: PayloadAction<boolean>) => {
             state.creatingResearch = action.payload;
         },
-
         setNewTaskDesign: (state, action: PayloadAction<boolean>) => {
             state.creatingDesign = action.payload;
         },
-
         setNewTaskDevelopment: (state, action: PayloadAction<boolean>) => {
             state.creatingDevelopment = action.payload;
         },
-
         setNewTaskDescription: (state, action: PayloadAction<string>) => {
             state.creatingDescription = action.payload;
         },
-
-
         setCurrentTaskId : (state, action: PayloadAction<number | null>) => {
             state.currentTaskId = action.payload;
         }
@@ -240,7 +271,7 @@ export const {
     
     setNewTaskPriority, setNewTaskResearch, setNewTaskDesign, setNewTaskDevelopment, 
     
-    setNewTaskDescription, setCurrentTaskId
+    setNewTaskDescription, setCurrentTaskId, increaseItemsMutiplier
 
 } = actions;
 

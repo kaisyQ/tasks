@@ -1,33 +1,61 @@
 import React from "react";
 
-import { useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
 import { NavLink } from "react-router-dom";
 
 import { TasksContainer } from "./TasksStyles";
 
-import Button from "../Custom/Button/Button";
+import { increaseItemsMutiplier } from "../../store/taskSlice/taskSlice";
+import { selectFilteredTasks } from "../../store/taskSlice/selectors";
 
+import Button from "../Custom/Button/Button";
 import Task from "./Task/Task";
 
-import { selectWithMarks } from "../../store/taskSlice/selectors";
-
 const Tasks = () => {
+    
+    const tasks = useAppSelector(state => selectFilteredTasks(state));
 
-    const tasks = useAppSelector((state) => selectWithMarks(state))
+    const dispatch = useAppDispatch();
+
+    const [isGetting, setIsGetting] = React.useState(true);
+
+    React.useEffect(() => {
+
+        const handleScroll = (ev: Event) => {
+            const target = ev.target as Document;
+            
+            if (target.documentElement.scrollHeight - (target.documentElement.scrollTop + window.innerHeight) < 100) {
+                setIsGetting(true)
+            }   
+        }
+        
+        document.addEventListener('scroll', handleScroll);
+
+        return () => {
+            document.removeEventListener('scroll', handleScroll);
+        }
+    }, []);
+
+    React.useEffect(() => {
+        
+        if(isGetting) {
+            dispatch(increaseItemsMutiplier());
+            setIsGetting(false)
+        }
+
+    }, [isGetting]);
 
     return (
         <>
             <TasksContainer>
-                <div>
-                    <NavLink to={'/task'}>
-                        <Button background="#1a50d9">Добавить задачу</Button>
-                    </NavLink>
-                </div>
+                <NavLink to={'/task'}>
+                    <Button background="#1a50d9">Добавить задачу</Button>
+                </NavLink>
                 {
                     tasks.length === 0 ? 
                         <div>Нет соответствующих задач</div> :
-                    tasks.map(task => <Task key={task.id} {...task} />)
+                    tasks.map(task => <Task key={task.id} task={task} />)
                 }
             </TasksContainer>
         </>

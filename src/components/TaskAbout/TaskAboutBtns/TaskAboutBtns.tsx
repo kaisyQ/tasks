@@ -7,7 +7,9 @@ import Button from "../../Custom/Button/Button";
 import { TaskAboutBtnsContainer, BtnsWrapper } from './TaskAboutBtnsStyles';
 
 import { useAppDispatch } from "../../../hooks/hooks";
-import { ITask, deleteTask, setNewTaskDescription, setNewTaskDesign, setNewTaskDevelopment, setNewTaskResearch, setNewTaskTitle } from "../../../store/taskSlice/taskSlice";
+import { deleteTask, setNewTaskDescription, setNewTaskDesign, setNewTaskDevelopment, setNewTaskResearch, setNewTaskTitle } from "../../../store/taskSlice/taskSlice";
+
+import { ITask } from "../../../types/types";
 
 interface ITaskAboutBtnsProps {
     task: ITask | null, 
@@ -45,7 +47,7 @@ const TaskAboutBtns = ({ setEditMode, editMode, task } : ITaskAboutBtnsProps) =>
     const onDeleteTask = (ev: React.MouseEvent<HTMLButtonElement>) => {
         if (!task) return;
         
-        dispatch(deleteTask(task.id))
+        dispatch(deleteTask(task.id));
     }
 
     return (
