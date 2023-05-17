@@ -13,7 +13,9 @@ const App = () => {
         <>
             <AppContainer>
                 <Routes>
-                    <Route path="/" element={ <MainView /> } />
+                    {                
+                        ["/", "/tasks/"].map(route => <Route path={route} element={ <MainView /> } />)
+                    }
                     <Route path="/task/:id?" element={ <TaskView />} />
                 </Routes>
             </AppContainer>
