@@ -1,0 +1,1 @@
+export const TASKS_TO_SHOW = 15;

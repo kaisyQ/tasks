@@ -18,7 +18,7 @@ const Mark = ({ title, actionCreator, value } : IMark) => {
     const dispatch = useAppDispatch();
 
     
-    const onMarkClick = () => {
+    const onMarkClick = (ev: React.MouseEvent<HTMLButtonElement>) => {
         dispatch(actionCreator(!value));       
     }
 

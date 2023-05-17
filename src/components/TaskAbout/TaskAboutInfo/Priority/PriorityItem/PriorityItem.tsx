@@ -6,8 +6,8 @@ import { PriorityItemContainer, PriorityItemBlock } from "./PriorityItemStyles";
 
 import { Priority } from "../../../../../types/types";
 
-import { setNewTaskPriority } from "../../../../../store/taskSlice/taskSlice";
-import { selectCreatingPriority } from "../../../../../store/taskSlice/selectors";
+import { setTempPriority } from "../../../../../store/taskSlice/taskSlice";
+import { selectTempPriority } from "../../../../../store/taskSlice/selectors";
 
 export interface IPriorityItemProps {
     value: Priority,
@@ -19,10 +19,10 @@ const PriorityItem = ({ value, showAll, setShowAll } : IPriorityItemProps) => {
     
     const dispatch = useAppDispatch();
 
-    const creatingPriority = useAppSelector(state => selectCreatingPriority(state));
+    const creatingPriority = useAppSelector(state => selectTempPriority(state));
     
     const onItemClick = (ev : React.MouseEvent<HTMLButtonElement>) => {
-        dispatch(setNewTaskPriority(value));
+        dispatch(setTempPriority(value));
         setShowAll(prev => !prev);
     }
 

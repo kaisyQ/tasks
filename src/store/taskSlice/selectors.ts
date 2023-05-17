@@ -2,6 +2,11 @@ import { createSelector } from "@reduxjs/toolkit";
 
 import type { RootState } from "../store";
 
+import { PRIORITY_LOW, PRIORITY_NORMAL, PRIORITY_HIGH } from "../../types/types";
+
+import { TASKS_TO_SHOW } from "../../constants/constants";
+
+
 export const selectTasks = (state: RootState) => state.tasks.tasks;
 
 export const selectCurrentTaskId = (state: RootState) => state.tasks.currentTaskId;
@@ -20,19 +25,19 @@ export const selectDesign = (state: RootState) => state.tasks.design;
 
 export const selectDevelopment = (state: RootState) => state.tasks.development;
 
-export const selectCreatingTitle = (state: RootState) => state.tasks.creatingTitle;
+export const selectTempTitle = (state: RootState) => state.tasks.tempTitle;
 
-export const selectCreatingPriority = (state: RootState) => state.tasks.creatingPriority;
+export const selectTempPriority = (state: RootState) => state.tasks.tempPriority;
 
-export const selectCreatingResearch = (state: RootState) => state.tasks.creatingResearch;
+export const selectTempResearch = (state: RootState) => state.tasks.tempResearch;
 
-export const selectCreatingDesign = (state: RootState) => state.tasks.creatingDesign;
+export const selectTempDesign = (state: RootState) => state.tasks.tempDesign;
 
-export const selectCreatingDev = (state: RootState) => state.tasks.creatingDevelopment;
+export const selectTempDev = (state: RootState) => state.tasks.tempDev;
 
-export const selectCreatingDescription = (state: RootState) => state.tasks.creatingDescription;
+export const selectTempDescription = (state: RootState) => state.tasks.tempDescription;
 
-export const selectItemsMultiplier = (state: RootState) => state.tasks.itemsMultiplier;
+export const selectPageCount = (state: RootState) => state.tasks.pageCount;
 
 export const selectTaskById = createSelector([selectTasks, selectCurrentTaskId], (tasks, taskId) => {
     
@@ -46,37 +51,44 @@ export const selectTaskById = createSelector([selectTasks, selectCurrentTaskId],
 })
 
 export const selectSortedTasks =  createSelector([selectTasks, selectSortByNew], (tasks, sortByNew) => {
+
     if (!sortByNew) {
         return [...tasks].sort((firstTask, secondTask) => firstTask.date.getTime() - secondTask.date.getTime())
     }
 
-    return [...tasks].sort((firstTask, secondTask) => {
-        return secondTask.date.getTime() - firstTask.date.getTime();
-    })
+    return [...tasks].sort((firstTask, secondTask) => secondTask.date.getTime() - firstTask.date.getTime());
 })
  
 export const selectFilteredByPriorityTasks = createSelector(
     [selectSortedTasks, selectLowPriority, selectNormalPriority, selectHighPriority], 
     
     (tasks, lowPriority, normalPriority, highPriority) => {
-        return tasks.filter(task => task.priority === 'LOW' && lowPriority || task.priority === 'NORMAL' && normalPriority || 
-            task.priority === 'HIGH' && highPriority
+        return tasks.filter(task => 
+            (task.priority === PRIORITY_LOW) && lowPriority || 
+            (task.priority === PRIORITY_NORMAL) && normalPriority || 
+            (task.priority === PRIORITY_HIGH) && highPriority
         )
     }
 )
 
-export const selectWithMarks = createSelector(
+export const selectWithMarksTasks = createSelector(
     [selectFilteredByPriorityTasks, selectResearch, selectDesign, selectDevelopment], 
     
 
     (tasks, research, design, dev) => {
 
-        if (!research && !design && !dev) return tasks.filter(task => !task.research && !task.design && !task.development);
+        if (!research && !design && !dev) {
+            return tasks.filter(task => !task.research && !task.design && !task.development);
+        }
 
-        return tasks.filter(task => (task.research && research) || (task.design &&  design) || (task.development && dev));
+        return tasks.filter(task => 
+            (task.research && research) || 
+            (task.design &&  design) || 
+            (task.development && dev)
+        );
     }
 )
 
-export const selectFilteredTasks = createSelector([selectWithMarks, selectItemsMultiplier], (tasks, multiplier) => {
-    return tasks.slice(0, 4*multiplier);
+export const selectFilteredTasks = createSelector([selectWithMarksTasks, selectPageCount], (tasks, multiplier) => {
+    return tasks.slice(0, TASKS_TO_SHOW*multiplier);
 })

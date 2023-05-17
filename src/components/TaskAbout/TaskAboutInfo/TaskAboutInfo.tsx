@@ -10,44 +10,46 @@ import { TaskAboutBlock, InfoBlock } from "./TaskAboutInfoStyles";
 import { NavLink } from "react-router-dom";
 
 import { 
-    createTask, setNewTaskDescription, 
-    setNewTaskDesign, setNewTaskDevelopment, setNewTaskResearch, updateTask 
+    createTask, setTempDescription, setTempDesign, setTempDev, setTempResearch, updateTask 
 } from "../../../store/taskSlice/taskSlice";
 
 import { ITask } from "../../../types/types";
+
+import { PRIORITY_LOW, PRIORITY_NORMAL, PRIORITY_HIGH } from "../../../types/types";
 
 import { getDateString } from "../../../helpers/date";
 
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 
-import { setNewTaskTitle } from "../../../store/taskSlice/taskSlice";
+import { setTempTitle } from "../../../store/taskSlice/taskSlice";
 
 import { 
-    selectCreatingTitle, 
-    selectCreatingResearch,
-    selectCreatingDesign,
-    selectCreatingDev,
-    selectCreatingDescription
+    selectTempTitle, 
+    selectTempResearch,
+    selectTempDesign,
+    selectTempDev,
+    selectTempDescription
 } from "../../../store/taskSlice/selectors";
 
 
 import Marks from "./Marks/Marks";
+
 import PrioritySelect from "./Priority/PrioritySelect";
 
 interface ITaskAboutInfoProps {
     task: ITask | null,
     editMode: boolean,
-};
+}
 
 const TaskAboutInfo = ({ editMode, task } : ITaskAboutInfoProps) => {
 
     const dispatch = useAppDispatch();
 
-    const creatingTitle = useAppSelector(state => selectCreatingTitle(state));
-    const creatingDescription = useAppSelector(state => selectCreatingDescription(state));
-    const creatingResearch = useAppSelector(state => selectCreatingResearch(state));
-    const creatingDesign = useAppSelector(state => selectCreatingDesign(state));
-    const creatingDev = useAppSelector(state => selectCreatingDev(state));
+    const creatingTitle = useAppSelector(state => selectTempTitle(state));
+    const creatingDescription = useAppSelector(state => selectTempDescription(state));
+    const creatingResearch = useAppSelector(state => selectTempResearch(state));
+    const creatingDesign = useAppSelector(state => selectTempDesign(state));
+    const creatingDev = useAppSelector(state => selectTempDev(state));
 
 
     const onSaveBtnClick = (ev: React.MouseEvent<HTMLButtonElement>) => {
@@ -59,11 +61,11 @@ const TaskAboutInfo = ({ editMode, task } : ITaskAboutInfoProps) => {
     }
 
     const onTitleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(setNewTaskTitle(ev.target.value));
+        dispatch(setTempTitle(ev.target.value));
     }
 
     const onDescriptionChange = (ev: React.ChangeEvent<HTMLTextAreaElement>) => {
-        dispatch(setNewTaskDescription(ev.target.value));
+        dispatch(setTempDescription(ev.target.value));
     }
 
     return (
@@ -71,8 +73,8 @@ const TaskAboutInfo = ({ editMode, task } : ITaskAboutInfoProps) => {
             <TaskAboutBlock>
                 <Title>Название задачи</Title>
                 {
-                    !editMode ? 
-                        <InfoBlock>{ task?.title }</InfoBlock> :
+                    !editMode && task? 
+                        <InfoBlock>{ task.title }</InfoBlock> :
                     <Input placeholder="Enter title" value={creatingTitle} onChange={onTitleChange}/>     
                 }
             </TaskAboutBlock>
@@ -90,7 +92,8 @@ const TaskAboutInfo = ({ editMode, task } : ITaskAboutInfoProps) => {
                 <Title>Приоритет</Title>
                 {
                     !editMode && task ?  
-                        <InfoBlock>{ task.priority }</InfoBlock> : <PrioritySelect items={['LOW','NORMAL','HIGH']}/>
+                        <InfoBlock>{ task.priority }</InfoBlock> : 
+                    <PrioritySelect items={[PRIORITY_LOW,PRIORITY_NORMAL, PRIORITY_HIGH]}/>
                 }
             </TaskAboutBlock> 
             
@@ -107,18 +110,18 @@ const TaskAboutInfo = ({ editMode, task } : ITaskAboutInfoProps) => {
                     </> : <Marks marks={[
                         {
                             title: 'research',
-                            actionCreator: setNewTaskResearch,
+                            actionCreator: setTempResearch,
                             value:  creatingResearch
                             
                         },
                         {
                             title: 'design',
-                            actionCreator: setNewTaskDesign,
+                            actionCreator: setTempDesign,
                             value: creatingDesign
                         },
                         { 
                             title: 'development',
-                            actionCreator: setNewTaskDevelopment,
+                            actionCreator: setTempDev,
                             value: creatingDev
                         }
                     ]}

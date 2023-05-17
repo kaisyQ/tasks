@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 
 import { TasksContainer } from "./TasksStyles";
 
-import { increaseItemsMutiplier } from "../../store/taskSlice/taskSlice";
+import { increasePageCount } from "../../store/taskSlice/taskSlice";
 import { selectFilteredTasks } from "../../store/taskSlice/selectors";
 
 import Button from "../Custom/Button/Button";
@@ -40,7 +40,7 @@ const Tasks = () => {
     React.useEffect(() => {
         
         if(isGetting) {
-            dispatch(increaseItemsMutiplier());
+            dispatch(increasePageCount());
             setIsGetting(false)
         }
 

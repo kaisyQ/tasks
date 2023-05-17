@@ -11,7 +11,7 @@ interface ITasksState {
 
     sortByNew: boolean,
 
-    itemsMultiplier: number,
+    pageCount: number,
 
     currentTaskId: number | null,
 
@@ -24,35 +24,35 @@ interface ITasksState {
     design: boolean,
     development: boolean
     
-    creatingTitle: string,
-    creatingPriority: Priority,
-    creatingResearch: boolean,
-    creatingDesign: boolean,
-    creatingDevelopment: boolean,
-    creatingDescription: string
+    tempTitle: string,
+    tempPriority: Priority,
+    tempResearch: boolean,
+    tempDesign: boolean,
+    tempDev: boolean,
+    tempDescription: string
 };
 
 const initialState: ITasksState= {
     tasks: [
         {
             id: 1,
-            title: 'first task',
+            title: '1 task',
             priority: 'LOW',
             date: new Date(0),
             research: true,
             design: false,
             development: true,
-            description: 'FIRST TASK DESCRIPTION'
+            description: '1 task descr'
         },
         {
             id: 2,
-            title: 'sec task',
+            title: '2 task',
             priority: 'HIGH',
             date: new Date('2017-01-26'),
             research: true,
             design: false,
             development: true,
-            description: ''
+            description: '2 task descr'
         },
         {
             id: 3,
@@ -62,7 +62,7 @@ const initialState: ITasksState= {
             research: true,
             design: true,
             development: true,
-            description: 'null'
+            description: '3 task descr'
         },
         {
             id: 4,
@@ -72,71 +72,222 @@ const initialState: ITasksState= {
             research: true,
             design: false,
             development: true,
-            description: 'null'
+            description: '4 task descr'
         },
         {
             id: 5,
-            title: '4 task',
+            title: '5 task',
             priority: 'HIGH',
             date: new Date(),
             research: true,
             design: false,
             development: true,
-            description: 'null'
+            description: '5 task descr'
         },
         {
             id: 6,
-            title: '4 task',
+            title: '46 task',
             priority: 'HIGH',
             date: new Date(),
             research: true,
             design: false,
             development: true,
-            description: 'null'
+            description: '6 task descr'
         },
         {
             id: 7,
-            title: '4 task',
+            title: '7 task',
             priority: 'HIGH',
             date: new Date(),
             research: true,
             design: false,
             development: true,
-            description: 'null'
+            description: '7 task descr'
         },
         {
             id: 8,
-            title: '4 task',
+            title: '8 task',
             priority: 'HIGH',
             date: new Date(),
             research: true,
             design: false,
             development: true,
-            description: 'null'
+            description: '8 task descr'
         },
         {
             id: 9,
-            title: '4 task',
+            title: '9 task',
             priority: 'HIGH',
             date: new Date(),
             research: true,
             design: false,
             development: true,
-            description: 'null'
+            description: '9 task descr'
         },
         {
             id: 10,
-            title: '4 task',
+            title: '10 task',
             priority: 'HIGH',
             date: new Date(),
             research: true,
             design: false,
             development: true,
-            description: 'null'
+            description: '10 task descr'
         },
+        {
+            id: 10,
+            title: '10 task',
+            priority: 'HIGH',
+            date: new Date(),
+            research: true,
+            design: false,
+            development: true,
+            description: '10 task descr'
+        },
+        {
+            id: 11,
+            title: '11 task',
+            priority: 'HIGH',
+            date: new Date(),
+            research: true,
+            design: false,
+            development: true,
+            description: '11 task descr'
+        },
+        {
+            id: 12,
+            title: '12 task',
+            priority: 'HIGH',
+            date: new Date(),
+            research: true,
+            design: false,
+            development: true,
+            description: '12 task descr'
+        },
+        {
+            id: 13,
+            title: '13 task',
+            priority: 'HIGH',
+            date: new Date(),
+            research: true,
+            design: false,
+            development: true,
+            description: '13 task descr'
+        },
+        {
+            id: 14,
+            title: '14 task',
+            priority: 'HIGH',
+            date: new Date(),
+            research: true,
+            design: false,
+            development: true,
+            description: '14 task descr'
+        },
+        {
+            id: 15,
+            title: '15 task',
+            priority: 'HIGH',
+            date: new Date(),
+            research: true,
+            design: false,
+            development: true,
+            description: '15 task descr'
+        },
+        {
+            id: 16,
+            title: '16 task',
+            priority: 'HIGH',
+            date: new Date(),
+            research: true,
+            design: false,
+            development: true,
+            description: '16 task descr'
+        },
+        {
+            id: 17,
+            title: '17 task',
+            priority: 'HIGH',
+            date: new Date(),
+            research: true,
+            design: false,
+            development: true,
+            description: '17 task descr'
+        },
+        {
+            id: 18,
+            title: '18 task',
+            priority: 'HIGH',
+            date: new Date(),
+            research: true,
+            design: false,
+            development: true,
+            description: '18 task descr'
+        },
+        {
+            id: 19,
+            title: '19 task',
+            priority: 'HIGH',
+            date: new Date(),
+            research: true,
+            design: false,
+            development: true,
+            description: '19 task descr'
+        },
+        {
+            id: 20,
+            title: '20 task',
+            priority: 'HIGH',
+            date: new Date(),
+            research: true,
+            design: false,
+            development: true,
+            description: '20 task descr'
+        },
+        {
+            id: 21,
+            title: '21 task',
+            priority: 'HIGH',
+            date: new Date(),
+            research: true,
+            design: false,
+            development: true,
+            description: '21 task descr'
+        },
+        {
+            id: 23,
+            title: '23 task',
+            priority: 'HIGH',
+            date: new Date(),
+            research: true,
+            design: false,
+            development: true,
+            description: '23 task descr'
+        },
+        {
+            id: 24,
+            title: '24 task',
+            priority: 'HIGH',
+            date: new Date(),
+            research: true,
+            design: false,
+            development: true,
+            description: '24 task descr'
+        },
+        {
+            id: 25,
+            title: '25 task',
+            priority: 'HIGH',
+            date: new Date(),
+            research: true,
+            design: false,
+            development: true,
+            description: '25 task descr'
+        },
+
     ],
 
-    itemsMultiplier: 0,
+    pageCount: 0,
     currentTaskId: null,
     
     sortByNew: true,
@@ -149,12 +300,12 @@ const initialState: ITasksState= {
     design: false,
     development: false,
     
-    creatingTitle: '',
-    creatingPriority: "LOW",
-    creatingResearch: false,
-    creatingDesign: false,
-    creatingDevelopment: false,
-    creatingDescription: ''
+    tempTitle: '',
+    tempPriority: "LOW",
+    tempResearch: false,
+    tempDesign: false,
+    tempDev: false,
+    tempDescription: ''
 };
 
 const taskSlice = createSlice({
@@ -162,26 +313,26 @@ const taskSlice = createSlice({
     initialState,
     reducers: {
         createTask: (state) => {
-            if (!state.creatingTitle || !state.creatingPriority || !state.creatingDescription) return;
+            if (!state.tempTitle || !state.tempPriority || !state.tempDescription) return;
             
             state.tasks.push({
-                id: state.tasks.length,
-                title: state.creatingTitle,
-                priority: state.creatingPriority,
+                id: state.tasks.length+1,
+                title: state.tempTitle,
+                priority: state.tempPriority,
                 date: new Date(),
-                research: state.creatingResearch,
-                design: state.creatingDesign,
-                development: state.creatingDevelopment,
-                description: state.creatingDescription
+                research: state.tempResearch,
+                design: state.tempDesign,
+                development: state.tempDev,
+                description: state.tempDescription
                 
             });
 
-            state.creatingTitle = '';
-            state.creatingPriority = PRIORITY_LOW;
-            state.creatingResearch = false;
-            state.creatingDesign = false;
-            state.creatingDevelopment = false;
-            state.creatingDescription = '';
+            state.tempTitle = '';
+            state.tempPriority = PRIORITY_LOW;
+            state.tempResearch = false;
+            state.tempDesign = false;
+            state.tempDev = false;
+            state.tempDescription = '';
         },
         updateTask: (state, action: PayloadAction<number>) => {
             state.tasks = state.tasks.map((task) => {
@@ -191,29 +342,29 @@ const taskSlice = createSlice({
                 
                 return {
                     ...task,
-                    title: state.creatingTitle,
-                    priority: state.creatingPriority,
-                    research: state.creatingResearch,
-                    design: state.creatingDesign,
-                    development: state.creatingDevelopment,
-                    description: state.creatingDescription
+                    title: state.tempTitle,
+                    priority: state.tempPriority,
+                    research: state.tempResearch,
+                    design: state.tempDesign,
+                    development: state.tempDev,
+                    description: state.tempDescription
                 }
             })
             
-            state.creatingTitle = '';
-            state.creatingPriority = PRIORITY_LOW;
-            state.creatingResearch = false;
-            state.creatingDesign = false;
-            state.creatingDevelopment = false;
-            state.creatingDescription = '';
+            state.tempTitle = '';
+            state.tempPriority = PRIORITY_LOW;
+            state.tempResearch = false;
+            state.tempDesign = false;
+            state.tempDev = false;
+            state.tempDescription = '';
 
         },
 
         deleteTask: (state, action: PayloadAction<number>) => {
             state.tasks = state.tasks.filter(task => task.id !== action.payload);
         },
-        increaseItemsMutiplier: (state) => {
-            state.itemsMultiplier++;
+        increasePageCount: (state) => {
+            state.pageCount++;
         },
         setResearch: (state, action: PayloadAction<boolean>) => {
             state.research = action.payload;
@@ -236,23 +387,23 @@ const taskSlice = createSlice({
         setHighPriority: (state, action: PayloadAction<boolean>) => {
             state.highPriority = action.payload;
         },
-        setNewTaskTitle: (state, action: PayloadAction<string>) => {
-            state.creatingTitle = action.payload;
+        setTempTitle: (state, action: PayloadAction<string>) => {
+            state.tempTitle = action.payload;
         },
-        setNewTaskPriority: (state, action: PayloadAction<Priority>) => {
-            state.creatingPriority = action.payload;
+        setTempPriority: (state, action: PayloadAction<Priority>) => {
+            state.tempPriority = action.payload;
         },
-        setNewTaskResearch: (state, action: PayloadAction<boolean>) => {
-            state.creatingResearch = action.payload;
+        setTempResearch: (state, action: PayloadAction<boolean>) => {
+            state.tempResearch = action.payload;
         },
-        setNewTaskDesign: (state, action: PayloadAction<boolean>) => {
-            state.creatingDesign = action.payload;
+        setTempDesign: (state, action: PayloadAction<boolean>) => {
+            state.tempDesign = action.payload;
         },
-        setNewTaskDevelopment: (state, action: PayloadAction<boolean>) => {
-            state.creatingDevelopment = action.payload;
+        setTempDev: (state, action: PayloadAction<boolean>) => {
+            state.tempDev = action.payload;
         },
-        setNewTaskDescription: (state, action: PayloadAction<string>) => {
-            state.creatingDescription = action.payload;
+        setTempDescription: (state, action: PayloadAction<string>) => {
+            state.tempDescription = action.payload;
         },
         setCurrentTaskId : (state, action: PayloadAction<number | null>) => {
             state.currentTaskId = action.payload;
@@ -267,11 +418,11 @@ export const {
     
     createTask, updateTask, deleteTask, setResearch, setDesign, setDevelopment,
 
-    setSortBy, setLowPriority, setNormalPriority, setHighPriority, setNewTaskTitle, 
+    setSortBy, setLowPriority, setNormalPriority, setHighPriority, setTempTitle, 
     
-    setNewTaskPriority, setNewTaskResearch, setNewTaskDesign, setNewTaskDevelopment, 
+    setTempPriority, setTempResearch, setTempDesign, setTempDev, 
     
-    setNewTaskDescription, setCurrentTaskId, increaseItemsMutiplier
+    setTempDescription, setCurrentTaskId, increasePageCount
 
 } = actions;
 

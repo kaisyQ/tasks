@@ -7,7 +7,14 @@ import Button from "../../Custom/Button/Button";
 import { TaskAboutBtnsContainer, BtnsWrapper } from './TaskAboutBtnsStyles';
 
 import { useAppDispatch } from "../../../hooks/hooks";
-import { deleteTask, setNewTaskDescription, setNewTaskDesign, setNewTaskDevelopment, setNewTaskResearch, setNewTaskTitle } from "../../../store/taskSlice/taskSlice";
+import { 
+    deleteTask, 
+    setTempDescription, 
+    setTempDesign, 
+    setTempDev, 
+    setTempResearch, 
+    setTempTitle 
+} from "../../../store/taskSlice/taskSlice";
 
 import { ITask } from "../../../types/types";
 
@@ -24,11 +31,11 @@ const TaskAboutBtns = ({ setEditMode, editMode, task } : ITaskAboutBtnsProps) =>
     const onEditBtnClick = (ev: React.MouseEvent<HTMLButtonElement>) => {
         if (!task) return;
         
-        dispatch(setNewTaskTitle(task.title));
-        dispatch(setNewTaskDescription(task.description));
-        dispatch(setNewTaskDesign(task.design));
-        dispatch(setNewTaskResearch(task.research));
-        dispatch(setNewTaskDevelopment(task.development));
+        dispatch(setTempTitle(task.title));
+        dispatch(setTempDescription(task.description));
+        dispatch(setTempDesign(task.design));
+        dispatch(setTempResearch(task.research));
+        dispatch(setTempDev(task.development));
 
         setEditMode(true);
     }
@@ -36,11 +43,11 @@ const TaskAboutBtns = ({ setEditMode, editMode, task } : ITaskAboutBtnsProps) =>
     const onBackBtnClick = (ev: React.MouseEvent<HTMLButtonElement>) => {
         if (!task) return;
         
-        dispatch(setNewTaskTitle(''));
-        dispatch(setNewTaskDescription(''));
-        dispatch(setNewTaskDesign(false));
-        dispatch(setNewTaskResearch(false));
-        dispatch(setNewTaskDevelopment(false));
+        dispatch(setTempTitle(''));
+        dispatch(setTempDescription(''));
+        dispatch(setTempDesign(false));
+        dispatch(setTempResearch(false));
+        dispatch(setTempDev(false));
 
     }
 
