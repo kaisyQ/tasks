@@ -7,7 +7,7 @@ import { PRIORITY_LOW, PRIORITY_NORMAL, PRIORITY_HIGH } from "../../types/types"
 import { TASKS_TO_SHOW } from "../../constants/constants";
 
 
-export const selectTasks = (state: RootState) => state.tasks.tasks;
+export const selectTasks = (state: RootState) => state.tasks.items;
 
 export const selectCurrentTaskId = (state: RootState) => state.tasks.currentTaskId;
 

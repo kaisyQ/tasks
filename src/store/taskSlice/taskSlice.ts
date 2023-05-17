@@ -7,7 +7,7 @@ import { ITask } from '../../types/types';
 
 
 interface ITasksState {
-    tasks: ITask[],
+    items: ITask[],
 
     sortByNew: boolean,
 
@@ -33,7 +33,7 @@ interface ITasksState {
 };
 
 const initialState: ITasksState= {
-    tasks: [
+    items: [
         {
             id: 1,
             title: '1 task',
@@ -315,8 +315,8 @@ const taskSlice = createSlice({
         createTask: (state) => {
             if (!state.tempTitle || !state.tempPriority || !state.tempDescription) return;
             
-            state.tasks.push({
-                id: state.tasks.length+1,
+            state.items.push({
+                id: state.items.length+1,
                 title: state.tempTitle,
                 priority: state.tempPriority,
                 date: new Date(),
@@ -335,7 +335,7 @@ const taskSlice = createSlice({
             state.tempDescription = '';
         },
         updateTask: (state, action: PayloadAction<number>) => {
-            state.tasks = state.tasks.map((task) => {
+            state.items = state.items.map((task) => {
                 if (task.id !== action.payload) {
                     return task;
                 }
@@ -361,7 +361,7 @@ const taskSlice = createSlice({
         },
 
         deleteTask: (state, action: PayloadAction<number>) => {
-            state.tasks = state.tasks.filter(task => task.id !== action.payload);
+            state.items = state.items.filter(task => task.id !== action.payload);
         },
         increasePageCount: (state) => {
             state.pageCount++;
